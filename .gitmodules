@@ -1,0 +1,6 @@
+[submodule "graphite-gtk"]
+	path = upstream/graphite-gtk
+	url = https://github.com/vinceliuice/Graphite-gtk-theme
+[submodule "graphite-kde"]
+	path = upstream/graphite-kde
+	url = https://github.com/vinceliuice/Graphite-kde-theme
