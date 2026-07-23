@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+dist_dir="${repo_dir}/dist"
+gtk_upstream="${repo_dir}/upstream/graphite-gtk"
+kde_upstream="${repo_dir}/upstream/graphite-kde"
+
+require_submodule() {
+  local directory="$1"
+  local label="$2"
+
+  printf "checking for %s...\t" "$label"
+  if ! git -C "$directory" rev-parse --verify HEAD >/dev/null 2>&1; then
+    printf 'MISSING.\nRun:\n    git submodule update --init --recursive\n'
+    exit 1
+  fi
+  printf "good\n"
+}
+
+require_submodule "$gtk_upstream" "Graphite GTK"
+require_submodule "$kde_upstream" "Graphite KDE"
+
+# refresh
+rm -rf "${dist_dir}/Blackbriar-gtk-theme" "${dist_dir}/Blackbriar-qt-theme"
+cp -R "$gtk_upstream" "${dist_dir}/Blackbriar-gtk-theme"
+mkdir -p "${dist_dir}/Blackbriar-qt-theme/Kvantum/Blackbriar"
+mkdir -p "${dist_dir}/Blackbriar-qt-theme/color-schemes"
+
+gtk_revision="$(git -C "$gtk_upstream" rev-parse HEAD)"
+kde_revision="$(git -C "$kde_upstream" rev-parse HEAD)"
+
+{
+  echo "Graphite GTK: ${gtk_revision}"
+  echo "Graphite KDE: ${kde_revision}"
+} >"${dist_dir}/UPSTREAM_REVISIONS"
+
+echo "Built Blackbriar into ${dist_dir}"
