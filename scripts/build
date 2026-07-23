@@ -28,6 +28,10 @@ cp -R "$gtk_upstream" "${dist_dir}/Blackbriar-gtk-theme"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/Kvantum/Blackbriar"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/color-schemes"
 
+colors="${dist_dir}/Blackbriar-qt-theme/color-schemes/Blackbriar.colors"
+cp "${kde_upstream}/color-schemes/GraphiteDark.colors" "$colors"
+patch "$colors" "${repo_dir}/src/qt/colors.patch"
+
 gtk_revision="$(git -C "$gtk_upstream" rev-parse HEAD)"
 kde_revision="$(git -C "$kde_upstream" rev-parse HEAD)"
 
