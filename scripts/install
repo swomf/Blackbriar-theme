@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+usage() {
+  echo "Usage: ./scripts/install [gtk|qt]" >&2
+  exit 1
+}
+
+install_gtk() {
+  "${repo_dir}/dist/Blackbriar-gtk-theme/install.sh" \
+    --name Blackbriar \
+    --color dark \
+    --size compact \
+    --tweaks black
+}
+
+install_qt() {
+  local kvantum_dest="${XDG_CONFIG_HOME:-${HOME}/.config}/Kvantum/Blackbriar"
+  local schemes_dest="${XDG_DATA_HOME:-${HOME}/.local/share}/color-schemes"
+
+  mkdir -p "$kvantum_dest" "$schemes_dest"
+  cp -a "${repo_dir}/dist/Blackbriar-qt-theme/Kvantum/Blackbriar/." \
+    "$kvantum_dest/"
+  cp -a "${repo_dir}/dist/Blackbriar-qt-theme/color-schemes/Blackbriar.colors" \
+    "$schemes_dest/"
+
+  echo "installed Kvantum theme to ${kvantum_dest}"
+  echo "installed color scheme to ${schemes_dest}/Blackbriar.colors"
+  echo "select BlackbriarDark with kvantummanager/qt6ct."
+}
+
+[[ $# -le 1 ]] || usage
+
+case "${1:-}" in # cheaply catch --help or wrong args; kinda ugly setup here
+"" | gtk | qt) ;;
+*) usage ;;
+esac
+
+"${repo_dir}/scripts/build"
+
+case "${1:-}" in
+gtk)
+  install_gtk
+  ;;
+qt)
+  install_qt
+  ;;
+*)
+  install_gtk
+  install_qt
+  ;;
+esac
