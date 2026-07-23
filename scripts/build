@@ -11,7 +11,7 @@ require_submodule() {
   local directory="$1"
   local label="$2"
 
-  printf "checking for %s...\t" "$label"
+  printf "checking for %s...\t\t" "$label"
   if ! git -C "$directory" rev-parse --verify HEAD >/dev/null 2>&1; then
     printf 'MISSING.\nRun:\n    git submodule update --init --recursive\n'
     exit 1
@@ -21,6 +21,13 @@ require_submodule() {
 
 require_submodule "$gtk_upstream" "Graphite GTK"
 require_submodule "$kde_upstream" "Graphite KDE"
+
+printf "regenerating Qt SVG constants...\t"
+if make -C "${repo_dir}/src/cpp" --no-print-directory generate; then
+  printf "good\n"
+else
+  printf "warning\nwarning: using the most recent checked-in Qt SVG constants instead\n"
+fi
 
 # refresh
 rm -rf "${dist_dir}/Blackbriar-gtk-theme" "${dist_dir}/Blackbriar-qt-theme"

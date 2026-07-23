@@ -6,6 +6,62 @@
 import shutil
 
 from ..common import replace_exact
+from .kvantum_generated_constants import (
+    BUTTON_FOCUSED,
+    BUTTON_NORMAL,
+    BUTTON_PRESSED,
+)
+
+
+def flatten_command_button_states(path):
+    # vinceliuice has a very subtle issue where grey buttons being transparent means
+    # that an animate_states=true will show an overshoot. but the background is grey too
+    # so it is not obvious... unless the background is black.
+    text = path.read_text()
+    start_marker = 'id="button-normal-topleft"'
+    end_marker = 'id="button-toggled-topleft"'
+    start = text.index(start_marker)
+    end = text.index(end_marker, start)
+    button_states = text[start:end]
+
+    replacements = (
+        (
+            'style="fill:#ffffff;opacity:0.1"',
+            f'style="fill:{BUTTON_NORMAL};opacity:1"',
+            3,
+        ),
+        (
+            'style="fill:#ffffff;opacity:0.2"',
+            f'style="fill:{BUTTON_FOCUSED};opacity:1"',
+            2,
+        ),
+        (
+            'fill="#fff"\n       opacity=".2"',
+            f'fill="{BUTTON_FOCUSED}"\n       opacity="1"',
+            1,
+        ),
+        (
+            'style="fill:#ffffff;opacity:0.25"',
+            f'style="fill:{BUTTON_PRESSED};opacity:1"',
+            2,
+        ),
+        (
+            'fill="#fff"\n       opacity=".25"',
+            f'fill="{BUTTON_PRESSED}"\n       opacity="1"',
+            1,
+        ),
+    )
+
+    for old, new, expected in replacements:
+        actual = button_states.count(old)
+        if actual != expected:
+            raise SystemExit(
+                f"{path}: expected {expected} occurrence(s), found {actual} "
+                f"inside command-button states\nsearched for:\n{old}"
+            )
+        button_states = button_states.replace(old, new)
+
+    path.write_text(text[:start] + button_states + text[end:])
 
 
 def build_kvantum(upstream, output):
@@ -45,3 +101,6 @@ def build_kvantum(upstream, output):
     replace_exact(dark_svg, "#2c2c2c", "#000000", expected=51)
     replace_exact(dark_svg, "#3c3c3c", "#000000", expected=5)
     replace_exact(dark_svg, "#1a1a1a", "#000000", expected=17)
+
+    # prevent overshoot on kvantum animate_states
+    flatten_command_button_states(dark_svg)
