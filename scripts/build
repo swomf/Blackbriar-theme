@@ -28,9 +28,14 @@ cp -R "$gtk_upstream" "${dist_dir}/Blackbriar-gtk-theme"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/Kvantum/Blackbriar"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/color-schemes"
 
-colors="${dist_dir}/Blackbriar-qt-theme/color-schemes/Blackbriar.colors"
-cp "${kde_upstream}/color-schemes/GraphiteDark.colors" "$colors"
-patch "$colors" "${repo_dir}/src/qt/colors.patch"
+# run python (cautious patching/string replacing/etc.)
+{
+  cd "$repo_dir"
+  python3 -m src.main \
+    "${dist_dir}/Blackbriar-gtk-theme" \
+    "$kde_upstream" \
+    "${dist_dir}/Blackbriar-qt-theme"
+}
 
 gtk_revision="$(git -C "$gtk_upstream" rev-parse HEAD)"
 kde_revision="$(git -C "$kde_upstream" rev-parse HEAD)"
