@@ -45,7 +45,8 @@ then equip the themes with your favorite theme switcher tools:
 - `nwg-look` -> Blackbriar-Dark
 - `kvantummanager` -> BlackbriarDark
 - `qt6ct` -> kvantum-dark
-- `hyprland`
+- `hyprland` lua, for persistency
+
     ```lua
     hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
     -- QT_STYLE_OVERRIDE is not necessary to be set.
@@ -56,8 +57,10 @@ then equip the themes with your favorite theme switcher tools:
     hl.env("HYPRCURSOR_THEME", "Blackbriar")
     hl.env("HYPRCURSOR_SIZE", "24")
     ````
-- `gsettings`
+- other commands for the current session
+
     ```bash
+    hyprctl setcursor Blackbriar 24
     gsettings set org.gnome.desktop.interface cursor-theme Blackbriar
     gsettings set org.gnome.desktop.interface cursor-size 24
     ```
