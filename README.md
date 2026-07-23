@@ -16,6 +16,7 @@ I'm on Hyprland, so I don't really target KDE or XFCE.
 | libadwaita                                   | Supported (by vinceliuice's symlink forcing) |
 | Qt6  widgets through Kvantum                 | Supported                                    |
 | KDE/Qt color scheme                          | Supported                                    |
+| cursor theme                                 | Supported (just vendored [qogir][qogir])     |
 | Hyprland                                     | Yeah (too lazy to test elsewhere)            |
 | XFCE and XFWM                                | Inherited; who knows if it works             |
 | Plasma Shell, Aurorae, SDDM, lock-screen QML | NOT INCLUDED (kde's DE will def be broken)   |
@@ -36,6 +37,7 @@ then install
 # Or install one side:
 # ./scripts/install gtk
 # ./scripts/install qt
+# ./scripts/install cursor
 ```
 
 then equip the themes with your favorite theme switcher tools:
@@ -43,8 +45,22 @@ then equip the themes with your favorite theme switcher tools:
 - `nwg-look` -> Blackbriar-Dark
 - `kvantummanager` -> BlackbriarDark
 - `qt6ct` -> kvantum-dark
-- `hyprland` -> `hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")`
-  - Don't set `"QT_STYLE_OVERRIDE"`, I don't think it's necessary.
+- `hyprland`
+    ```lua
+    hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+    -- QT_STYLE_OVERRIDE is not necessary to be set.
+
+    -- See https://wiki.hypr.land/Hypr-Ecosystem/hyprcursor/
+    hl.env("XCURSOR_THEME", "Blackbriar")
+    hl.env("XCURSOR_SIZE", "24")
+    hl.env("HYPRCURSOR_THEME", "Blackbriar")
+    hl.env("HYPRCURSOR_SIZE", "24")
+    ````
+- `gsettings`
+    ```bash
+    gsettings set org.gnome.desktop.interface cursor-theme Blackbriar
+    gsettings set org.gnome.desktop.interface cursor-size 24
+    ```
 
 If you have Firefox Color you can use this [share link][sfox] to make
 Firefox's theme match.
@@ -81,6 +97,7 @@ by forking/patching. Here
 
 [ggtk]: https://github.com/vinceliuice/Graphite-gtk-theme
 [gkde]: https://github.com/vinceliuice/Graphite-kde-theme
+[qogir]: https://github.com/vinceliuice/Qogir-icon-theme/tree/master/src/cursors
 [sgtk]: https://github.com/swomf/Blackbriar-gtk-theme
 [skde]: https://github.com/swomf/Blackbriar-kde-theme
 [sfox]: https://color.firefox.com/?theme=XQAAAAJ0AQAAAAAAAABBKYhm849SCia6aSqEGccwS-xMDPrv2Sw6Caq-qy5QgqeHG4K15QeDoRokmgjiM6AAxM3X9F70ZoGsfXBn8NHNS5chMvkRB4ubMyj96LA5TsM9yBeD-fLr7M3skzK9h0UOu0ms_i2E7dGTbWM2w_W7SvQYSdZokWwWk8xfs3Ua53OL7DJbbcKr-qOOZ56XfJHf8UkG_PuOS5yE0xzGOi4h2SS1Y3OHRfJTNrclVnyy-oswVg

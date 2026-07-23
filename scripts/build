@@ -6,6 +6,7 @@ repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 dist_dir="${repo_dir}/dist"
 gtk_upstream="${repo_dir}/upstream/graphite-gtk"
 kde_upstream="${repo_dir}/upstream/graphite-kde"
+cursor_source="${repo_dir}/src/cursors"
 
 require_submodule() {
   local directory="$1"
@@ -29,11 +30,18 @@ else
   printf "warning\nwarning: using the most recent checked-in Qt SVG constants instead\n"
 fi
 
-# refresh
-rm -rf "${dist_dir}/Blackbriar-gtk-theme" "${dist_dir}/Blackbriar-qt-theme"
+# refresh/some cheap copying
+rm -rf "${dist_dir}/Blackbriar-gtk-theme" \
+  "${dist_dir}/Blackbriar-qt-theme" \
+  "${dist_dir}/Blackbriar"
 cp -R "$gtk_upstream" "${dist_dir}/Blackbriar-gtk-theme"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/Kvantum/Blackbriar"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/color-schemes"
+mkdir -p "${dist_dir}/Blackbriar"
+cp -a "${cursor_source}/cursors" \
+  "${cursor_source}/index.theme" \
+  "${cursor_source}/UPSTREAM_REVISION" \
+  "${dist_dir}/Blackbriar/"
 
 # run python (cautious patching/string replacing/etc.)
 {
