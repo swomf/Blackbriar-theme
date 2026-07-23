@@ -33,3 +33,15 @@ def build_kvantum(upstream, output):
             "comment=An uncomplicated theme inspired by the Materia GTK theme",
             "comment=Blackbriar application theme generated from Graphite",
         )
+
+    dark_kvconfig = destination / "BlackbriarDark.kvconfig"
+
+    # GeneralColors window.color, base.color, alt.base.color
+    replace_exact(dark_kvconfig, "#2c2c2c", "#000000", expected=2)
+    replace_exact(dark_kvconfig, "#2e2e2e", "#000000")
+
+    # fills for the window chrome
+    dark_svg = destination / "BlackbriarDark.svg"
+    replace_exact(dark_svg, "#2c2c2c", "#000000", expected=51)
+    replace_exact(dark_svg, "#3c3c3c", "#000000", expected=5)
+    replace_exact(dark_svg, "#1a1a1a", "#000000", expected=17)
