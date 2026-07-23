@@ -46,6 +46,14 @@ then equip the themes with your favorite theme switcher tools:
 - `hyprland` -> `hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")`
   - Don't set `"QT_STYLE_OVERRIDE"`, I don't think it's necessary.
 
+If you have Firefox Color you can use this [share link][sfox] to make
+Firefox's theme match.
+
+<sup>I can't publish it because Firefox is annoyed
+at the overload of jet-black/adjacent themes lol.
+Compared to the other themes, mine adds better
+cursor-hovering-flips-colors support.</sup>
+
 ## what is this nonsense?
 
 I really like vinceliuice's [Graphite GTK][ggtk] and [Graphite KDE][gkde]
@@ -75,3 +83,4 @@ by forking/patching. Here
 [gkde]: https://github.com/vinceliuice/Graphite-kde-theme
 [sgtk]: https://github.com/swomf/Blackbriar-gtk-theme
 [skde]: https://github.com/swomf/Blackbriar-kde-theme
+[sfox]: https://color.firefox.com/?theme=XQAAAAJ0AQAAAAAAAABBKYhm849SCia6aSqEGccwS-xMDPrv2Sw6Caq-qy5QgqeHG4K15QeDoRokmgjiM6AAxM3X9F70ZoGsfXBn8NHNS5chMvkRB4ubMyj96LA5TsM9yBeD-fLr7M3skzK9h0UOu0ms_i2E7dGTbWM2w_W7SvQYSdZokWwWk8xfs3Ua53OL7DJbbcKr-qOOZ56XfJHf8UkG_PuOS5yE0xzGOi4h2SS1Y3OHRfJTNrclVnyy-oswVg
