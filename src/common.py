@@ -2,6 +2,12 @@
 
 from pathlib import Path
 import subprocess
+from textwrap import dedent as dedent_text, indent as indent_text
+
+
+def block(text: str, indent: int = 0) -> str:
+    content = dedent_text(text).removeprefix("\n").removesuffix("\n")
+    return indent_text(content, " " * indent)
 
 
 def replace_exact(path: Path, old: str, new: str, expected: int = 1) -> None:

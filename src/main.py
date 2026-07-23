@@ -5,10 +5,12 @@ import shutil
 import sys
 
 from .common import patch
+from .gtk.build_gtk import build_gtk
 from .qt.kvantum import build_kvantum
 
 
 def build_theme(gtk_output: Path, kde_upstream: Path, qt_output: Path) -> None:
+    build_gtk(gtk_output)
     build_kvantum(kde_upstream, qt_output)
 
     colors = qt_output / "color-schemes/Blackbriar.colors"
