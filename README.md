@@ -12,14 +12,14 @@ I'm on Hyprland, so I don't really target KDE or XFCE.
 
 | Component                                    | Status                                       |
 | -------------------------------------------- | -------------------------------------------- |
-| GTK 3 and GTK 4 applications                 | Supported                                    |
-| libadwaita                                   | Supported (by vinceliuice's symlink forcing) |
-| Qt6  widgets through Kvantum                 | Supported                                    |
-| KDE/Qt color scheme                          | Supported                                    |
-| cursor theme                                 | Supported (just vendored [qogir][qogir])     |
+| GTK3, GTK4 applications                      | ✅                                           |
+| libadwaita                                   | ✅ (by vinceliuice's symlink forcing)        |
+| Qt6 widgets via Kvantum                      | ✅                                           |
+| KDE/Qt color scheme                          | ✅                                           |
+| XCursor theme                                | ✅ (just vendored [qogir][qogir])            |
 | Hyprland                                     | Yeah (too lazy to test elsewhere)            |
-| XFCE and XFWM                                | Inherited; who knows if it works             |
-| Plasma Shell, Aurorae, SDDM, lock-screen QML | NOT INCLUDED (kde's DE will def be broken)   |
+| XFCE and XFWM                                | ¯\\\_(ツ)_/¯ Inherited; who knows if it works|
+| Plasma Shell, Aurorae, SDDM, lock-screen QML | ❌ excluded. kde's DE will def be broken     |
 
 Good? Great. Pull
 
