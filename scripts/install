@@ -40,7 +40,8 @@ install_gtk() {
   "${repo_dir}/dist/Blackbriar-gtk-theme/install.sh" \
     --name Blackbriar \
     --color dark \
-    --tweaks black
+    --tweaks black \
+    --libadwaita
 }
 
 install_qt() {
