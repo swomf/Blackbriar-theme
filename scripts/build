@@ -31,9 +31,8 @@ else
 fi
 
 # refresh/some cheap copying
-rm -rf "${dist_dir}/Blackbriar-gtk-theme" \
-  "${dist_dir}/Blackbriar-qt-theme" \
-  "${dist_dir}/Blackbriar"
+rm -rf "${dist_dir}"
+mkdir -p "${dist_dir}"
 cp -R "$gtk_upstream" "${dist_dir}/Blackbriar-gtk-theme"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/Kvantum/Blackbriar"
 mkdir -p "${dist_dir}/Blackbriar-qt-theme/color-schemes"
