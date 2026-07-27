@@ -60,13 +60,16 @@ install_qt() {
 }
 
 install_cursor() {
-  local icons_dest="${HOME}/.local/share/icons"
-  local cursor_dest="${icons_dest}/Blackbriar"
+  local cursor_dest_xdg="$HOME/.local/share/Blackbriar"
+  # https://www.mail-archive.com/debian-x%2540lists.debian.org/msg148030.html
+  local cursor_dest_libxcursor="${HOME}/.icons/Blackbriar"
 
-  mkdir -p "$cursor_dest"
-  cp -a "${repo_dir}/dist/Blackbriar/." "$cursor_dest/"
+  mkdir -p "$cursor_dest_xdg" "$cursor_dest_libxcursor"
+  cp -a "${repo_dir}/dist/Blackbriar/." "$cursor_dest_xdg/"
+  cp -a "${repo_dir}/dist/Blackbriar/." "$cursor_dest_libxcursor/"
 
-  echo "installed cursor theme to ${cursor_dest}"
+  echo "installed cursor theme to ${cursor_dest_xdg}"
+  echo "installed cursor theme to ${cursor_dest_libxcursor} (compatibility)"
   echo "select Blackbriar and set XCURSOR_THEME=Blackbriar."
 }
 
