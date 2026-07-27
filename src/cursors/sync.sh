@@ -19,12 +19,12 @@ fi
 
 mkdir -p "$checkout"
 git -C "$checkout" init --quiet
-git -C "$checkout" sparse-checkout set "src/cursors/dist-Dark/"
+git -C "$checkout" sparse-checkout set "src/cursors/dist/"
 git -C "$checkout" fetch --quiet --depth=1 --filter=blob:none "$repo" "$revision"
 git -C "$checkout" checkout --quiet --detach FETCH_HEAD
 
 resolved_revision="$(git -C "$checkout" rev-parse HEAD)"
-upstream_cursors="${checkout}/src/cursors/dist-Dark/cursors"
+upstream_cursors="${checkout}/src/cursors/dist/cursors"
 
 if [[ ! -f "${upstream_cursors}/default" ]]; then
   echo "ERROR: qogir cursors not found at ${resolved_revision}"
