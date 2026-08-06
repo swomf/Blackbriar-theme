@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from .apps import transform_apps
+from .apps import transform_apps, transform_gnome
 from .decorations import transform_decorations
 from ..common import replace_exact
 
@@ -23,3 +23,4 @@ def build_gtk(root):
 
     transform_decorations(root / "src/sass/gtk/_common-3.0.scss")
     transform_apps(root / "src/sass/gtk/apps/_misc.scss")
+    transform_gnome(root / "src/sass/gtk/apps/_gnome-4.0.scss")
