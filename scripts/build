@@ -59,4 +59,6 @@ kde_revision="$(git -C "$kde_upstream" rev-parse HEAD)"
   echo "Graphite KDE: ${kde_revision}"
 } >"${dist_dir}/UPSTREAM_REVISIONS"
 
+# we don't use fancy segmented printf here because
+# that would screw with debug output e.g. annotated=True
 echo "Built Blackbriar into ${dist_dir}"
