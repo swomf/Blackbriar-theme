@@ -3,7 +3,18 @@
 set -euo pipefail
 
 repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_dir"
 
 shellcheck \
   "${repo_dir}/scripts/build" \
+  "${repo_dir}/scripts/install" \
   "${repo_dir}/scripts/test"
+
+# this clobbers dist/ so dont leave anything in there
+"${repo_dir}/scripts/build"
+
+# vince's install.sh explodes on shellcheck, but i think it's too much
+# effort to maintain a replace_exact forest on install.sh to correct it
+bash -o noexec "${repo_dir}/dist/Blackbriar-gtk-theme/install.sh"
+
+python3 "${repo_dir}/tests/validate.py" "${repo_dir}/dist"
