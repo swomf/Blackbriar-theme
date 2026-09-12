@@ -63,6 +63,39 @@ def build_gtk(root):
         "",
     )
 
+    # test on ./gtk/build-gtk4/demos/gtk-demo/gtk4-demo
+    # LALT does black on black sidebar focus overlay because
+    # Graphite expects a white bg
+    replace_exact(
+        root / "src/sass/gtk/_common-4.0.scss",
+        block(
+            """
+                  &:focus-visible:focus-within {
+                    outline: none;
+                    background-color: $overlay-focus;
+
+                    &:hover {
+                      background-color: $overlay-focus-hover;
+                    }
+                  }
+            """,
+            indent=6,
+        ),
+        block(
+            """
+                  &:focus-visible:focus-within {
+                    outline: none;
+                    background-color: $primary;
+
+                    &:hover {
+                      background-color: lighten($primary, 5%);
+                    }
+                  }
+            """,
+            indent=6,
+        ),
+    )
+
     transform_decorations(root / "src/sass/gtk/_common-3.0.scss")
     transform_apps(root / "src/sass/gtk/apps/_misc.scss")
     transform_gnome(root / "src/sass/gtk/apps/_gnome-4.0.scss")
