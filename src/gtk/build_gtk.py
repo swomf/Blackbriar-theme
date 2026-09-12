@@ -96,6 +96,37 @@ def build_gtk(root):
         ),
     )
 
+    # test on ./gtk/build-gtk4/demos/gtk-demo/gtk4-demo
+    # the dropdown icon doesnt flip, so we
+    # * inherit the selected row text color (flip to black correctly)
+    # * disable transitions (make it flip immediately or else theres a smal delay)
+    # NOTE: if there are small delays in other icon flip areas we should look here
+    replace_exact(
+        root / "src/sass/gtk/_common-4.0.scss",
+        block(
+            """
+            treeexpander {
+              border-spacing: 4px;
+            }
+            """
+        ),
+        block(
+            """
+            treeexpander {
+              border-spacing: 4px;
+            }
+
+            .navigation-sidebar > row treeexpander > expander {
+              transition: none;
+            }
+
+            .navigation-sidebar > row:selected treeexpander > expander {
+              color: inherit;
+            }
+            """
+        ),
+    )
+
     transform_decorations(root / "src/sass/gtk/_common-3.0.scss")
     transform_apps(root / "src/sass/gtk/apps/_misc.scss")
     transform_gnome(root / "src/sass/gtk/apps/_gnome-4.0.scss")
