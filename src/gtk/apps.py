@@ -2,6 +2,15 @@ from ..common import block, replace_exact
 
 
 def transform_gnome(path):
+    # gnome-calendar, hover-over-selected and selected day colors
+    # Graphite uses color() as a background image, may be a bug upstream?
+    # does this might make it too bright?
+    replace_exact(
+        path,
+        "background-image: color($primary);",
+        "background-image: image($primary);",
+    )
+
     # gnome-calendar >=46:
     # - tint event backgrounds instead of solid fill
     #   - i don't worry about this.
